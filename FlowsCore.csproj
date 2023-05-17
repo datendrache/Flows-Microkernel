@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>Flows Core</Title>
+    <Description>Core Server Components</Description>
+	<Authors>Datendrache</Authors>
+    <Copyright>Copyright 2003-2023 by Eric Knight</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FatumCore" Version="1.0.0" />
+    <PackageReference Include="FlowsLibrary" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
