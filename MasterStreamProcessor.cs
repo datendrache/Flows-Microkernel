@@ -1,21 +1,29 @@
-﻿//   Phloz
-//   Copyright (C) 2003-2019 Eric Knight
+﻿//   Flows Microkernel -- Complex Event Processing Kernel
+//
+//   Copyright (C) 2003-2023 Eric Knight
+//   This software is distributed under the GNU Public v3 License
+//
+//   This program is free software: you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation, either version 3 of the License, or
+//   (at your option) any later version.
 
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.IO;
+//   This program is distributed in the hope that it will be useful,
+//   but WITHOUT ANY WARRANTY; without even the implied warranty of
+//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//   GNU General Public License for more details.
+
+//   You should have received a copy of the GNU General Public License
+//   along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 using System.Runtime.ExceptionServices;
-using FatumCore;
+using Proliferation.Fatum;
 using System.Data.SQLite;
 using System.Collections;
-using PhlozLib;
 using DatabaseAdapters;
-using PhlozLib.SearchCore;
 using Proliferation.LanguageAdapters;
-using System.Linq;
 
-namespace PhlozCore
+namespace Proliferation.Flows.Microkernel
 {
     public class MasterStreamProcessor
     {
@@ -42,7 +50,7 @@ namespace PhlozCore
         {
             State = new CollectionState(FC);
             State.MasterReceiver = new BaseReceiver(new DocumentEventHandler(DocumentArrived),
-                new PhlozLib.ErrorEventHandler(ErrorReceived),
+                new Proliferation.Flows.ErrorEventHandler(ErrorReceived),
                 new EventHandler(CommunicationLost),
                 new EventHandler(StoppedReceiver),
                 new FlowEventHandler(onFlowDetected));
@@ -148,7 +156,7 @@ namespace PhlozCore
             errorMessage("General Processing", "Information", receiver.getReceiverType() + " Receiver shut down.");
         }
 
-        private void ErrorReceived(object source, PhlozLib.ErrorEventArgs e)
+        private void ErrorReceived(object source, Proliferation.Flows.ErrorEventArgs e)
         {
             errorMessage("General Processing", "Error", e.ErrorMessage);
         }
@@ -179,7 +187,7 @@ namespace PhlozCore
                     {
                         if (e.Document.assignedFlow.Parameter.ExtractedMetadata.tree.Count > 0)
                         {
-                            Tree.mergeNode(e.Document.assignedFlow.Parameter.ExtractedMetadata, e.Document.Metadata);
+                            Tree.MergeNode(e.Document.assignedFlow.Parameter.ExtractedMetadata, e.Document.Metadata);
                         }
                     }
                 }
@@ -190,7 +198,7 @@ namespace PhlozCore
                     {
                         if (e.Document.assignedFlow.ParentService.Parameter.ExtractedMetadata.tree.Count > 0)
                         {
-                            Tree.mergeNode(e.Document.assignedFlow.ParentService.Parameter.ExtractedMetadata, e.Document.Metadata);
+                            Tree.MergeNode(e.Document.assignedFlow.ParentService.Parameter.ExtractedMetadata, e.Document.Metadata);
                         }
                     }
 
@@ -200,7 +208,7 @@ namespace PhlozCore
                         {
                             if (e.Document.assignedFlow.ParentService.ParentSource.Parameter.ExtractedMetadata.tree.Count > 0)
                             {
-                                Tree.mergeNode(e.Document.assignedFlow.ParentService.ParentSource.Parameter.ExtractedMetadata, e.Document.Metadata);
+                                Tree.MergeNode(e.Document.assignedFlow.ParentService.ParentSource.Parameter.ExtractedMetadata, e.Document.Metadata);
                             }
                         }
                     }
@@ -564,10 +572,10 @@ namespace PhlozCore
                                             foreach (Tree document in SearchResults.tree)
                                             {
                                                 BaseDocument newDocument = new BaseDocument((BaseFlow)null);
-                                                newDocument.Document = document.getElement("Document");
-                                                newDocument.Category = document.getElement("Category");
-                                                newDocument.Label = document.getElement("Label");
-                                                newDocument.received = new DateTime(long.Parse(document.getElement("Received")));
+                                                newDocument.Document = document.GetElement("Document");
+                                                newDocument.Category = document.GetElement("Category");
+                                                newDocument.Label = document.GetElement("Label");
+                                                newDocument.received = new DateTime(long.Parse(document.GetElement("Received")));
                                                 newDocument.Metadata = document.Duplicate();
                                                 newDocument.FlowID = currentTask.UniqueID;
                                                 newDocument.assignedFlow = null;
@@ -576,7 +584,7 @@ namespace PhlozCore
                                         }
                                     }
                                     
-                                    SearchResults.dispose();
+                                    SearchResults.Dispose();
                                     SearchResults = null;
                                 }
                             }

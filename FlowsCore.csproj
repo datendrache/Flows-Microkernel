@@ -5,15 +5,30 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	<Title>Flows Core</Title>
-    <Description>Core Server Components</Description>
+	<Title>Proliferation.Flows.Microkernel</Title>
+    <Description>Complex Event Processor Microkernel library</Description>
 	<Authors>Datendrache</Authors>
     <Copyright>Copyright 2003-2023 by Eric Knight</Copyright>
+    <AssemblyName>Proliferation.Flows.Microkernel</AssemblyName>
+    <Version>1.0.2</Version>
+    <PackageProjectUrl>https://github.com/datendrache/Flows-Microkernel</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/datendrache/Flows-Microkernel.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>Proliferation; Flows; Complex Event Processor; Microkernel</PackageTags>
+    <PackageReleaseNotes>Updated from Fatum 1.0.2</PackageReleaseNotes>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FatumCore" Version="1.0.0" />
-    <PackageReference Include="FlowsLibrary" Version="1.0.0" />
+    <None Include="C:\Users\daten\Downloads\LICENSE.txt">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Proliferation.Fatum" Version="1.0.2" />
+    <PackageReference Include="Proliferation.Flows" Version="1.0.2" />
   </ItemGroup>
 
 </Project>
